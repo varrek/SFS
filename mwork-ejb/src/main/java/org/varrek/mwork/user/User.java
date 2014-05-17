@@ -29,7 +29,7 @@ public class User {
 	private String pass;
 
 	@ManyToOne(targetEntity = UserGroup.class)
-	private UserGroup group;
+	private UserGroup u_group;
 	@OneToMany
 	@JoinColumn(name = "userId")
 	private List<RepoAccess> repositories;
@@ -60,7 +60,7 @@ public class User {
 		this.address = address;
 		this.description = description;
 		this.pass = pass;
-		this.group = group;
+		this.u_group = group;
 		this.repositories = repositories;
 		this.keyUser = keyUser;
 	}
@@ -175,18 +175,18 @@ public class User {
 	}
 
 	/**
-	 * @return the group
+	 * @return the u_group
 	 */
-	public UserGroup getGroup() {
-		return group;
+	public UserGroup getU_group() {
+		return u_group;
 	}
 
 	/**
-	 * @param group
-	 *            the group to set
+	 * @param u_group
+	 *            the u_group to set
 	 */
-	public void setGroup(UserGroup group) {
-		this.group = group;
+	public void setU_group(UserGroup u_group) {
+		this.u_group = u_group;
 	}
 
 	/**

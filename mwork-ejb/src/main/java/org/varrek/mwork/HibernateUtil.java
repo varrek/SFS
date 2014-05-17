@@ -13,7 +13,6 @@ public class HibernateUtil {
 	private static SessionFactory sessionFactory;
 
 	static {
-		System.out.println("!&!&!");
 		try {
 			// Configuration configuration = new Configuration();
 			Configuration configuration = new Configuration().configure("META-INF/hibernate.cfg.xml");

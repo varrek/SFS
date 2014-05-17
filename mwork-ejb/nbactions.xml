@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Export</actionName>
+            <displayName>Export</displayName>
+            <goals>
+                <goal>hibernate4:export</goal>
+            </goals>
+        </action>
+    </actions>

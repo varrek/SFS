@@ -109,13 +109,9 @@ public class UserController{
 			newUser.setPass(HashedPassword);
 			newUser.setEmail(email);
 			try {
-				System.out.println("!!!");
 				sess.beginTransaction();
-				System.out.println("!!!");
 				sess.persist(newUser);
-				System.out.println("!!!");
 				sess.getTransaction().commit();
-				System.out.println("!!!");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

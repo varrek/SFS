@@ -3,116 +3,126 @@ package org.varrek.mwork.repo;
 import java.util.*;
 
 import javax.persistence.*;
+import org.varrek.mwork.files.Folder;
 
 @Entity
 @Table(name = "repositories")
 public class Repo {
-	@Id
-	@GeneratedValue
-	private int id;
-	@Column
-	private String name;
-	@Column
-	private String descr;
-	@OneToMany(targetEntity = RepoAccess.class)
-	@JoinColumn(name = "repoID")
-	private List<RepoAccess> users;
-	@OneToOne(targetEntity = Keys.class)
-	@JoinColumn(name = "id")
-	private Repo keyRepo;
 
-	/**
-	 * @param id
-	 * @param name
-	 * @param descr
-	 * @param users
-	 * @param keyRepo
-	 */
-	public Repo(int id, String name, String descr, List<RepoAccess> users,
-			Repo keyRepo) {
-		this.id = id;
-		this.name = name;
-		this.descr = descr;
-		this.users = users;
-		this.keyRepo = keyRepo;
-	}
+    @Id
+    @GeneratedValue
+    private int id;
+    @Column
+    private String name;
+    @Column
+    private String descr;
+    @OneToMany(targetEntity = RepoAccess.class)
+    @JoinColumn(name = "repoID")
+    private List<RepoAccess> users;
+    @OneToOne(targetEntity = Keys.class)
+    @JoinColumn(name = "id")
+    private Keys keyRepo;
+    @OneToOne(targetEntity = Folder.class)
+    @JoinColumn(name = "id")
+    private Folder root;
 
-	public Repo() {
-	}
+    public Folder getRoot() {
+        return root;
+    }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    public void setRoot(Folder root) {
+        this.root = root;
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @param id
+     * @param name
+     * @param descr
+     * @param users
+     * @param keyRepo
+     */
+    public Repo(String name, String descr, List<RepoAccess> users,
+            Keys keyRepo) {
+        this.name = name;
+        this.descr = descr;
+        this.users = users;
+        this.keyRepo = keyRepo;
+        this.root = new Folder();
+        this.root.setName(name);
+        this.root.setParent_location(root);
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    private Repo() {
+    }
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the descr
-	 */
-	public String getDescr() {
-		return descr;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param descr
-	 *            the descr to set
-	 */
-	public void setDescr(String descr) {
-		this.descr = descr;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return the users
-	 */
-	public List<RepoAccess> getUsers() {
-		return users;
-	}
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @param users
-	 *            the users to set
-	 */
-	public void setUsers(List<RepoAccess> users) {
-		this.users = users;
-	}
+    /**
+     * @return the descr
+     */
+    public String getDescr() {
+        return descr;
+    }
 
-	/**
-	 * @return the keyRepo
-	 */
-	public Repo getKeyRepo() {
-		return keyRepo;
-	}
+    /**
+     * @param descr the descr to set
+     */
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
 
-	/**
-	 * @param keyRepo
-	 *            the keyRepo to set
-	 */
-	public void setKeyRepo(Repo keyRepo) {
-		this.keyRepo = keyRepo;
-	}
+    /**
+     * @return the users
+     */
+    public List<RepoAccess> getUsers() {
+        return users;
+    }
+
+    /**
+     * @param users the users to set
+     */
+    public void setUsers(List<RepoAccess> users) {
+        this.users = users;
+    }
+
+    /**
+     * @return the keyRepo
+     */
+    public Keys getKeyRepo() {
+        return keyRepo;
+    }
+
+    /**
+     * @param keyRepo the keyRepo to set
+     */
+    public void setKeyRepo(Keys keyRepo) {
+        this.keyRepo = keyRepo;
+    }
 
 }

@@ -5,14 +5,14 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_groups")
 public class UserGroup {
 	@Id
 	@GeneratedValue
 	private int id;
 	@Column
 	private String name;
-	@OneToMany
+	@OneToMany(targetEntity = User.class)
+        @JoinColumn(name="id")
 	private List<User> users;
 
 	/**

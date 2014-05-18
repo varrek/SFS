@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.varrek.mwork.files;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.varrek.mwork.HibernateUtil;
 import org.varrek.mwork.repo.Keys;
 import org.varrek.mwork.repo.Repo;
 
@@ -25,86 +24,117 @@ import org.varrek.mwork.repo.Repo;
  * @author Varrep
  */
 public class FileControllerTest {
-    
+
     public FileControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     /**
      * Test of createDirectory method, of class FileController.
-     * @throws java.io.IOException
      */
     @Test
-    public void testCreateDirectory() throws IOException {
-        System.out.println("createDirectory");
-         Session sess = HibernateUtil.openSession();
-        Repo rep = new Repo ("test","",new ArrayList <>(),new Keys());
-        Folder parent = rep.getRoot();
-        parent.setId(2);
-        Folder temp=(Folder)sess.get(AbsctactFile.class,1);
-        parent.setParent_location(temp);
-        parent.setFiles(null);
-
-    
+    public void testCreateDirectory() throws Exception {
         try {
-                    sess.beginTransaction();
-                    sess.save(parent);
-                    sess.getTransaction().commit();
-                } catch (Exception e) {
-                    throw e;
-                }
-        String dirName = "testDir";
-        FileController instance = new FileController();
-        boolean expResult = true;
-        boolean result = instance.createDirectory(rep, parent, dirName);
-        assertEquals(expResult, result);
+            Properties properties = new Properties();
+            try {
+                InputStream is = this.getClass().getResourceAsStream("/META-INF/config.properties");
+                properties.load(is);
+            } catch (IOException e) {
+                throw e;
+            }
+
+            String repoRoot = properties.getProperty("contex.repoRoot");
+            System.out.println("createDirectory");
+            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+            System.out.println(repoRoot + "\\" + rep.getName());
+            File parent = new File(repoRoot + "\\" + rep.getName());
+            String dirName = "inTest";
+            FileController instance = new FileController();
+            boolean expResult = true;
+            boolean result = instance.createDirectory(rep, parent, dirName);
+            assertEquals(expResult, result);
+        } catch (IOException ex) {
+            throw ex;
+        }
     }
 
     /**
-     * Test of copyFile method, of class FileController.
+     * Test of recursiveCopy method, of class FileController.
      */
+    
     @Test
-    public void testCopyFile() {
-        System.out.println("copyFile");
-        File sourceFileName = null;
-        Folder targetFolderName = null;
-        FileController instance = new FileController();
-        boolean expResult = false;
-        boolean result = instance.copyFile(sourceFileName, targetFolderName);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testRecursiveCopy() throws Exception {
+       try {
+            Properties properties = new Properties();
+            try {
+                InputStream is = this.getClass().getResourceAsStream("/META-INF/config.properties");
+                properties.load(is);
+            } catch (IOException e) {
+                throw e;
+            }
 
+            String repoRoot = properties.getProperty("contex.repoRoot");
+            System.out.println("copyDirectory");
+            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+            System.out.println(repoRoot + "\\" + rep.getName());
+            File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest");
+            File dirName = new File(repoRoot + "\\" + rep.getName() + "\\testCopy\\");
+            FileController instance = new FileController();
+            boolean expResult = true;
+            boolean result = instance.recursiveCopy(parent, dirName);
+            assertEquals(expResult, result);
+        } catch (IOException ex) {
+            throw ex;
+        }
+    }
     /**
-     * Test of copyDir method, of class FileController.
+     * Test of recursiveCopy method, of class FileController.
      */
+    
     @Test
-    public void testCopyDir() {
-        System.out.println("copyDir");
-        String sourceDirName = "";
-        String targetDirName = "";
-        FileController instance = new FileController();
-        boolean expResult = false;
-        boolean result = instance.copyDir(sourceDirName, targetDirName);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRecursiveCopyFile() throws Exception {
+        try {
+            Properties properties = new Properties();
+            try {
+                InputStream is = this.getClass().getResourceAsStream("/META-INF/config.properties");
+                properties.load(is);
+            } catch (IOException e) {
+                throw e;
+            }
+
+            String repoRoot = properties.getProperty("contex.repoRoot");
+            System.out.println("copyDirectory");
+            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+//            System.out.println(repoRoot + "\\" + rep.getName());
+            File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\");
+            File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest2\\");
+          //  File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\AndhorUser.java");
+           // File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\inTest\\AndhorUser.java");
+//            System.out.println(repoRoot + "\\" + rep.getName() + "\\inTest\\AndhorUser.java");
+//            System.out.println(repoRoot + "\\" + rep.getName() + "\\inTest\\inTest\\"+ parent.getName());
+            FileController instance = new FileController();
+            boolean expResult = true;
+            boolean result = instance.recursiveCopy(parent, dirName);
+            assertEquals(expResult, result);
+        } catch (IOException ex) {
+            throw ex;
+        }
     }
     
+
 }

@@ -24,7 +24,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -49,8 +48,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.3-1100-jdbc41</version>
-        </dependency>
-		
+        </dependency>        
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -126,7 +124,7 @@
                     <execution>
                         <id>export</id>
                         <goals>
-                            <goal>hbm2ddl</goal>
+                            <goal>export</goal>
                         </goals>
                     </execution>
                 </executions>

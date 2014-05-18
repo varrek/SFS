@@ -1,9 +1,10 @@
 package org.varrek.mwork.repo;
 
+import java.io.File;
 import java.util.*;
 
 import javax.persistence.*;
-import org.varrek.mwork.files.Folder;
+
 
 @Entity
 @Table(name = "repositories")
@@ -22,20 +23,10 @@ public class Repo {
     @OneToOne(targetEntity = Keys.class)
     @JoinColumn(name = "id")
     private Keys keyRepo;
-    @OneToOne(targetEntity = Folder.class)
-    @JoinColumn(name = "id")
-    private Folder root;
+ 
 
-    public Folder getRoot() {
-        return root;
-    }
-
-    public void setRoot(Folder root) {
-        this.root = root;
-    }
 
     /**
-     * @param id
      * @param name
      * @param descr
      * @param users
@@ -47,9 +38,6 @@ public class Repo {
         this.descr = descr;
         this.users = users;
         this.keyRepo = keyRepo;
-        this.root = new Folder();
-        this.root.setName(name);
-        this.root.setParent_location(root);
     }
 
     private Repo() {

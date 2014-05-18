@@ -2,16 +2,14 @@ package org.varrek.mwork.files;
 
 import java.util.Date;
 
-import javax.persistence.*;
 
-@Entity
+
 public class File extends AbsctactFile {
 
-    @Column
+
     private float size;
 
     /**
-     * @param id
      * @param date_created
      * @param date_modyfied
      * @param parent_location

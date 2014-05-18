@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
 public class Folder extends AbsctactFile {
 
     @OneToMany(targetEntity = AbsctactFile.class)
@@ -18,14 +17,13 @@ public class Folder extends AbsctactFile {
     }
 
     /**
-     * @param id
      * @param date_created
      * @param date_modyfied
      * @param parent_location
      * @param name
      * @param files
      */
-    public Folder(int id, Date date_created, Date date_modyfied,
+    public Folder( Date date_created, Date date_modyfied,
             Folder parent_location, String name, List<AbsctactFile> files) {
         super(date_created, date_modyfied, parent_location, name);
         this.files = files;
@@ -39,7 +37,7 @@ public class Folder extends AbsctactFile {
     }
 
     /**
-     * @param filess the filess to set
+     * @param files the filess to set
      */
     public void setFiles(List<AbsctactFile> files) {
         this.files = files;

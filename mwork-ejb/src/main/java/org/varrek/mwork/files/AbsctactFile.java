@@ -4,22 +4,16 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbsctactFile {
 
-    @Id
-    @GeneratedValue
     private int p_id;
-    @Column
-    @Temporal(TemporalType.DATE)
+
     private Date date_created;
-    @Column
-    @Temporal(TemporalType.DATE)
+
     private Date date_modyfied;
-    @ManyToOne(targetEntity = Folder.class)
+
     private Folder parent_location;
-    @Column
+
     private String name;
 
     /**

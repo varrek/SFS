@@ -19,5 +19,3 @@
     </body>
 </html>
 
-
-Read more: http://javarevisited.blogspot.com/2013/07/ile-upload-example-in-servlet-and-jsp-java-web-tutorial-example.html#ixzz324xsRzYw

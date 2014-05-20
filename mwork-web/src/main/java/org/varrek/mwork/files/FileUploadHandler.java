@@ -45,7 +45,7 @@ public class FileUploadHandler extends HttpServlet {
                         item.write(tmp);
                         String res = GenerateDigitalSignature.generateSigh(tmp);
                         boolean ver=GenerateDigitalSignature.verifySigh(tmp);
-                        request.setAttribute("message", "Object:" + res+"\nVeryfise:"+ver);
+                        request.setAttribute("message", "\nVeryfise:"+ver);
                         item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
                     }
                 }

@@ -101,6 +101,31 @@ public class GenerateDigitalSignature {
         return (info);
     }// copyFromFile ()
 
+    public static boolean generateKeys(String userLogin) throws NoSuchProviderException {
+        boolean result = false;
+        try {
+            String path = "d:\\Documents\\Varrek\\Programs\\magwork\\Repos\\keys";
+            File theDir = new File(path + '\\' + userLogin);
+            System.out.println(theDir);
+
+            theDir.mkdir();
+            String newPath = theDir.toString();
+
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+            keyGen.initialize(1024, random);
+            KeyPair generatedKeyPair = keyGen.genKeyPair();
+
+            System.out.println("Generated Key Pair");
+            GenerateDigitalSignature.dumpKeyPair(generatedKeyPair);
+            GenerateDigitalSignature.SaveKeyPair(newPath, generatedKeyPair);
+            result = true;
+        } catch (IOException | NoSuchAlgorithmException e) {
+            result = false;
+        }
+        return result;
+    }
+
     public static String generateSigh(File fileToSign) {
         String result = "falseed";
         try {

@@ -1,9 +1,5 @@
 package org.varrek.mwork.user;
 
-import java.io.File;
-import java.io.IOException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -109,9 +105,7 @@ public class UserController {
     public RegistrationResult register(
             String login,
             String password, String passwordConfirmation,
-            String email, String emailConfitmation,
-            String sex,
-            Boolean needUserConfirmation) throws Exception {
+            String email, String emailConfitmation, String fullanme, String address) throws Exception {
         RegistrationResult result = RegistrationResult.RegistrationSuccessfull;
         Session sess = HibernateUtil.openSession();
         Query q = sess.createQuery("from User WHERE login=:login");
@@ -130,34 +124,18 @@ public class UserController {
             newUser.setLogin(login);
             newUser.setPass(HashedPassword);
             newUser.setEmail(email);
+            newUser.setFullName(fullanme);
+            newUser.setAddress(address);
+            newUser.setDescription("");
+            newUser.setU_group(null);
             try {
                 sess.beginTransaction();
                 sess.persist(newUser);
                 sess.getTransaction().commit();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw e;
             } finally {
-                try {
-
-                    String path = "d:/Documents/Varrek/Programs/magwork/keys/";
-                    File theDir = new File(path + '\\' + newUser.getLogin());
-                    System.out.println(theDir);
-
-                    theDir.mkdir();
-                    String newPath=theDir.toString();
-
-                    KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
-
-                    keyGen.initialize(1024);
-                    KeyPair generatedKeyPair = keyGen.genKeyPair();
-
-                    System.out.println("Generated Key Pair");
-                    GenerateDigitalSignature.dumpKeyPair(generatedKeyPair);
-                    GenerateDigitalSignature.SaveKeyPair(newPath, generatedKeyPair);
-                } catch (IOException  | NoSuchAlgorithmException e) {
-                  //  throw e;
-                }
+                GenerateDigitalSignature.generateKeys(newUser.getLogin());
             }
         }
         return result;
@@ -177,7 +155,7 @@ public class UserController {
         boolean result = true;
         User newUserInstance;
         Session session = HibernateUtil.openSession();
-        Query pq = session.createQuery("from Users WHERE WHERE Login=\"" + Username + "\" AND Password=\"" + getMD5(Password) + "\"");
+        Query pq = session.createQuery("from User WHERE login='" + Username + "' AND pass='" + getMD5(Password) + "'");
         List<User> queryResult = pq.list();
         if (queryResult.size() == 1) {
             newUserInstance = queryResult.get(0);

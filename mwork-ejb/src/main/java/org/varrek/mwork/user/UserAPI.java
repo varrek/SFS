@@ -58,7 +58,7 @@ public class UserAPI extends HttpServlet {
                 final RegistrationResult status;
                 try {
                     status = UsersOnline.register(request.getParameter("login"), request.getParameter("password"), request.getParameter("passwordconfirm"),
-                            request.getParameter("email"), request.getParameter("emailconfirm"), request.getParameter("sex"), true);
+                            request.getParameter("email"), request.getParameter("emailconfirm"),request.getParameter("fullname"),request.getParameter("address"));
 
                     if (status.equals(RegistrationResult.RegistrationSuccessfull)) {
                         out.print("Register successfull");

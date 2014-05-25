@@ -12,15 +12,10 @@ public class UserGroup {
 	@Column
 	private String name;
 	@OneToMany(targetEntity = User.class)
-        @JoinColumn(name="id")
-	private List<User> users;
+	private List<User> users_in_group;
 
-	/**
-	 * @param id
-	 * @param users
-	 */
 	public UserGroup() {
-		this.users = new ArrayList<User>();
+		this.users_in_group = new ArrayList<User>();
 	}
 
 	/**
@@ -31,7 +26,7 @@ public class UserGroup {
 	public UserGroup(int id, String name, List<User> users) {
 		this.id = id;
 		this.name = name;
-		this.users = users;
+		this.users_in_group = users;
 	}
 
 	/**
@@ -50,18 +45,18 @@ public class UserGroup {
 	}
 
 	/**
-	 * @return the users
+	 * @return the users_in_group
 	 */
 	public List<User> getUsers() {
-		return users;
+		return users_in_group;
 	}
 
 	/**
 	 * @param users
-	 *            the users to set
+	 *            the users_in_group to set
 	 */
 	public void setUsers(List<User> users) {
-		this.users = users;
+		this.users_in_group = users;
 	}
 
 	/**

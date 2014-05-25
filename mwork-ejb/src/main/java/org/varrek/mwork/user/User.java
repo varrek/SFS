@@ -10,213 +10,205 @@ import org.varrek.mwork.repo.RepoAccess;
 @Entity
 @Table(name = "users")
 public class User {
-	@Id
-	@GeneratedValue
-	private int id;
 
-	@Column
-	private String fullName;
+    @Id
+    @GeneratedValue
+    private int id;
 
-	@Column(unique = true)
-	private String login;
-	@Column
-	private String email;
-	@Column
-	private String address;
-	@Column
-	private String description;
-	@Column
-	private String pass;
+    @Column
+    private String fullName;
 
-	@ManyToOne(targetEntity = UserGroup.class)
-	private UserGroup u_group;
-	@OneToMany
-	@JoinColumn(name = "userId")
-	private List<RepoAccess> repositories;
+    @Column(unique = true)
+    private String login;
+    @Column
+    private String email;
+    @Column
+    private String address;
+    @Column
+    private String description;
+    @Column
+    private String pass;
 
-	@OneToOne(targetEntity = Keys.class)
-	@JoinColumn(name = "id")
-	private Keys keyUser;
+    @ManyToOne(targetEntity = UserGroup.class)
+    @JoinColumn(name = "u_group",referencedColumnName = "id")
+    private UserGroup u_group;
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private List<RepoAccess> repositories;
 
-	/**
-	 * @param id
-	 * @param fullName
-	 * @param login
-	 * @param email
-	 * @param address
-	 * @param description
-	 * @param pass
-	 * @param group
-	 * @param repositories
-	 * @param keyUser
-	 */
-	public User(int id, String fullName, String login, String email,
-			String address, String description, String pass, UserGroup group,
-			List<RepoAccess> repositories, Keys keyUser) {
-		this.id = id;
-		this.fullName = fullName;
-		this.login = login;
-		this.email = email;
-		this.address = address;
-		this.description = description;
-		this.pass = pass;
-		this.u_group = group;
-		this.repositories = repositories;
-		this.keyUser = keyUser;
-	}
+    @OneToOne(targetEntity = Keys.class)
+    @JoinColumn(name = "id")
+    private Keys keyUser;
 
-	public User() {
-		this.repositories = new ArrayList<RepoAccess>();
-	}
+    /**
+     * @param id
+     * @param fullName
+     * @param login
+     * @param email
+     * @param address
+     * @param description
+     * @param pass
+     * @param group
+     * @param repositories
+     * @param keyUser
+     */
+    public User(int id, String fullName, String login, String email,
+            String address, String description, String pass, UserGroup group,
+            List<RepoAccess> repositories, Keys keyUser) {
+        this.id = id;
+        this.fullName = fullName;
+        this.login = login;
+        this.email = email;
+        this.address = address;
+        this.description = description;
+        this.pass = pass;
+        this.u_group = group;
+        this.repositories = repositories;
+        this.keyUser = keyUser;
+    }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    public User() {
+        this.repositories = new ArrayList<RepoAccess>();
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the fullName
-	 */
-	public String getFullName() {
-		return fullName;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param fullName
-	 *            the fullName to set
-	 */
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+    /**
+     * @return the fullName
+     */
+    public String getFullName() {
+        return fullName;
+    }
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
+    /**
+     * @param fullName the fullName to set
+     */
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-	/**
-	 * @param login
-	 *            the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
-	}
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 * @param address
-	 *            the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * @return the pass
-	 */
-	public String getPass() {
-		return pass;
-	}
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/**
-	 * @param pass
-	 *            the pass to set
-	 */
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
+    /**
+     * @return the pass
+     */
+    public String getPass() {
+        return pass;
+    }
 
-	/**
-	 * @return the u_group
-	 */
-	public UserGroup getU_group() {
-		return u_group;
-	}
+    /**
+     * @param pass the pass to set
+     */
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
-	/**
-	 * @param u_group
-	 *            the u_group to set
-	 */
-	public void setU_group(UserGroup u_group) {
-		this.u_group = u_group;
-	}
+    /**
+     * @return the u_group
+     */
+    public UserGroup getU_group() {
+        return u_group;
+    }
 
-	/**
-	 * @return the repositories
-	 */
-	public List<RepoAccess> getRepositories() {
-		return repositories;
-	}
+    /**
+     * @param u_group the u_group to set
+     */
+    public void setU_group(UserGroup u_group) {
+        this.u_group = u_group;
+    }
 
-	/**
-	 * @param repositories
-	 *            the repositories to set
-	 */
-	public void setRepositories(List<RepoAccess> repositories) {
-		this.repositories = repositories;
-	}
+    /**
+     * @return the repositories
+     */
+    public List<RepoAccess> getRepositories() {
+        return repositories;
+    }
 
-	/**
-	 * @return the keyUser
-	 */
-	public Keys getKeyUser() {
-		return keyUser;
-	}
+    /**
+     * @param repositories the repositories to set
+     */
+    public void setRepositories(List<RepoAccess> repositories) {
+        this.repositories = repositories;
+    }
 
-	/**
-	 * @param keyUser
-	 *            the keyUser to set
-	 */
-	public void setKeyUser(Keys keyUser) {
-		this.keyUser = keyUser;
-	}
+    /**
+     * @return the keyUser
+     */
+    public Keys getKeyUser() {
+        return keyUser;
+    }
+
+    /**
+     * @param keyUser the keyUser to set
+     */
+    public void setKeyUser(Keys keyUser) {
+        this.keyUser = keyUser;
+    }
 
 }

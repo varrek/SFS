@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.varrek.mwork.repo.Keys;
+import org.varrek.mwork.repo.Repo;
 import org.varrek.mwork.repo.RepoAccess;
 
 @Entity
@@ -30,7 +31,7 @@ public class User {
     private String pass;
 
     @ManyToOne(targetEntity = UserGroup.class)
-    @JoinColumn(name = "u_group",referencedColumnName = "id")
+    @JoinColumn(name = "u_group", referencedColumnName = "id")
     private UserGroup u_group;
     @OneToMany
     @JoinColumn(name = "userId")
@@ -209,6 +210,27 @@ public class User {
      */
     public void setKeyUser(Keys keyUser) {
         this.keyUser = keyUser;
+    }
+
+    public RepoAccess getRepoRight(Repo rep) {
+        RepoAccess result = null;
+        for (RepoAccess curr : repositories) {
+            if (curr.getRepoID().getId() == rep.getId()) {
+                result = curr;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void setRepoRight(RepoAccess access) {
+        for (RepoAccess curr : repositories) {
+            if (curr.getRepoID().getId() == access.getRepoID().getId()) {
+                repositories.remove(curr);
+                break;
+            }
+        }
+        repositories.add(access);
     }
 
 }

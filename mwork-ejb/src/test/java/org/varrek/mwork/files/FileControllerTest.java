@@ -60,7 +60,7 @@ public class FileControllerTest {
 
             String repoRoot = properties.getProperty("contex.repoRoot");
             System.out.println("createDirectory");
-            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+            Repo rep = new Repo("test", "", new Keys());
             System.out.println(repoRoot + "\\" + rep.getName());
             File parent = new File(repoRoot + "\\" + rep.getName());
             String dirName = "inTest";
@@ -90,7 +90,7 @@ public class FileControllerTest {
 
             String repoRoot = properties.getProperty("contex.repoRoot");
             System.out.println("copyDirectory");
-            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+            Repo rep = new Repo("test", "",  new Keys());
             System.out.println(repoRoot + "\\" + rep.getName());
             File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest");
             File dirName = new File(repoRoot + "\\" + rep.getName() + "\\testCopy\\");
@@ -119,7 +119,7 @@ public class FileControllerTest {
 
             String repoRoot = properties.getProperty("contex.repoRoot");
             System.out.println("copyDirectory");
-            Repo rep = new Repo("test", "", new ArrayList<>(), new Keys());
+            Repo rep = new Repo("test", "",  new Keys());
 //            System.out.println(repoRoot + "\\" + rep.getName());
             File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\");
             File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest2\\");

@@ -13,33 +13,14 @@ import org.varrek.mwork.user.User;
  *
  * @author Varrep
  */
-public class RepoController {
-    // @todo update Hibernate session for User and Repo 
-    public String createRepository(String repoName, String description, User cUser) {
-        String result = "failure";
-        Session sess = HibernateUtil.openSession();
-        Repo newRepo = new Repo();
-        newRepo.setName(repoName);
-        newRepo.setDescr(description);
-        try {
-            sess.beginTransaction();
-            sess.persist(newRepo);
-            sess.getTransaction().commit();
-        } catch (Exception e) {
-            throw e;
-        }
-        RepoAccess newRepoAccess = new RepoAccess(cUser, newRepo, true, true, false);
-        cUser.setRepoRight(newRepoAccess);
-        newRepo.setUserRight(newRepoAccess);
-        return result;
-    }
+public class RepoAccessController {
 
     public String grantRights(User userId, Repo repoId, boolean isAdmin,
             boolean isOperator, boolean isHaveAccess) {
         String result = "failure";
         Session sess = HibernateUtil.openSession();
         RepoAccess access = new RepoAccess();
-        access.setUser(userId);
+       // access.setUser(userId);
         access.setRepoID(repoId);
         access.setAdmin(isAdmin);
         access.setOperator(isOperator);

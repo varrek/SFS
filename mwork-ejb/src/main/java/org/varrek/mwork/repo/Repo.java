@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import javax.persistence.*;
-
+import org.varrek.mwork.user.User;
 
 @Entity
 @Table(name = "repositories")
@@ -23,8 +23,6 @@ public class Repo {
     @OneToOne(targetEntity = Keys.class)
     @JoinColumn(name = "id")
     private Keys keyRepo;
- 
-
 
     /**
      * @param name
@@ -32,15 +30,16 @@ public class Repo {
      * @param users
      * @param keyRepo
      */
-    public Repo(String name, String descr, List<RepoAccess> users,
+    public Repo(String name, String descr,
             Keys keyRepo) {
         this.name = name;
         this.descr = descr;
-        this.users = users;
+        this.users = new ArrayList<RepoAccess>();
         this.keyRepo = keyRepo;
     }
 
-    private Repo() {
+    public Repo() {
+        this.users = new ArrayList<RepoAccess>();
     }
 
     /**
@@ -111,6 +110,27 @@ public class Repo {
      */
     public void setKeyRepo(Keys keyRepo) {
         this.keyRepo = keyRepo;
+    }
+
+    public RepoAccess getUserRight(User user) {
+        RepoAccess result = null;
+        for (RepoAccess curr : users) {
+            if (curr.getUser().getId() == user.getId()) {
+                result = curr;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void setUserRight(RepoAccess access) {
+        for (RepoAccess curr : users) {
+            if (curr.getRepoID().getId() == access.getRepoID().getId()) {
+                users.remove(curr);
+                break;
+            }
+        }
+        users.add(access);
     }
 
 }

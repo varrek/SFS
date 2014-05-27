@@ -10,7 +10,7 @@ public class RepoAccess {
 	@GeneratedValue
 	private int id;
 	@ManyToOne(targetEntity = User.class)
-	private User userId;
+	private User user;
 	@ManyToOne(targetEntity = Repo.class)
 	private Repo repoID;
 
@@ -31,10 +31,9 @@ public class RepoAccess {
 	 * @param isOperator
 	 * @param isHaveAccess
 	 */
-	public RepoAccess(int id, User userId, Repo repoID, boolean isAdmin,
+	public RepoAccess(User userId, Repo repoID, boolean isAdmin,
 			boolean isOperator, boolean isHaveAccess) {
-		this.id = id;
-		this.userId = userId;
+		this.user = userId;
 		this.repoID = repoID;
 		this.isAdmin = isAdmin;
 		this.isOperator = isOperator;
@@ -60,18 +59,18 @@ public class RepoAccess {
 	}
 
 	/**
-	 * @return the userId
+	 * @return the user
 	 */
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
 	/**
 	 * @param userId
-	 *            the userId to set
+	 *            the user to set
 	 */
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User userId) {
+		this.user = userId;
 	}
 
 	/**

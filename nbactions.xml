@@ -36,6 +36,8 @@
             <actionName>run</actionName>
             <goals>
                 <goal>-DskipTests</goal>
+                
+                
             </goals>
         </action>
     </actions>

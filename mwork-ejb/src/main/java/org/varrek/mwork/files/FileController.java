@@ -6,11 +6,15 @@
 package org.varrek.mwork.files;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import org.varrek.mwork.repo.Repo;
 
@@ -91,4 +95,49 @@ public class FileController {
         }
         return result;
     }
+
+    public static File [] listDir(File dir) {
+        FilenameFilter filter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return !name.endsWith(".SIGN");
+            }
+        };
+        File[] children = dir.listFiles(filter);
+        if (children == null) {
+            // Either dir does not exist or is not a directory
+        } else {
+            for (int i = 0; i < children.length;
+                    i++) {
+                // Get filename of file or directory
+                File filename = children[i];
+            }
+        }
+        return children;
+    }
+      public static List getFileList(String dirName, FilenameFilter filter)
+	    {
+
+	        List filesList = null;
+	        File dir = null;
+	        // setup File dir
+	        dir = new File(dirName);
+	        // filter dir list and convert to arrayList
+	        if ((dir != null) && (dir.isDirectory()) && (dir.exists()) && (dir.canRead()))
+	        {
+	            File[] files = null;
+	            if (filter != null)
+	            {
+	                files = dir.listFiles(filter);
+	            }
+	            else
+	            {
+	                files = dir.listFiles();
+	            }
+	            if (files != null)
+	            {
+	                filesList = Arrays.asList(files);
+	            }
+	        }
+	        return filesList;
+	    }
 }

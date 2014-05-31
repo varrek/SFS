@@ -41,8 +41,6 @@ public class UserController {
      * Connects to the database, used to store passwords (All necessary tables,
      * in fact - simple table Users must be already created).
      *
-     * @param stmnt Statement to use for query execution (from the existing
-     * database connection).
      * @return True if connection was successfully established.
      */
     public UserController() {
@@ -97,10 +95,10 @@ public class UserController {
      * @param passwordConfirmation Re-typed user's password.
      * @param email New user's email.
      * @param emailConfitmation Re-typed user's e-mail.
-     * @param sex Gender of new user.
-     * @param needUserConfirmation If true, there will be generated activation
-     * code, and user will be marked as non-confirmed.
+     * @param fullanme
+     * @param address
      * @return Registration status.
+     * @throws java.lang.Exception
      */
     public RegistrationResult register(
             String login,
@@ -147,6 +145,7 @@ public class UserController {
      *
      * @param Username Login
      * @param Password Password
+     * @param SessionID
      * @return Object of class User, if login was successful, and false in other
      * case.
      */
@@ -217,7 +216,7 @@ public class UserController {
     /**
      * Retrieves information about current logged in user from it's IP address.
      *
-     * @param IP Remote IP Address.
+     * @param sessionID
      * @return Object of type User, which represents current logged in user(If
      * exists).
      */

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/WEB-INF/templates/template.jsp">
+		<put-attribute name="title" value="Magwork" type="string"/>
+		<put-attribute name="header" value="/WEB-INF/templates/header.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/templates/navigation.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/templates/content.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/templates/footer.jsp"/>
+	</definition>
+
+	<definition name="WILDCARD:*" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/pages/{1}.jsp"/>
+	</definition>
+
+</tiles-definitions>

@@ -126,7 +126,7 @@ public class GenerateDigitalSignatureTest {
     @Test
     public void testVerifySigh() {
         System.out.println("verifySigh");
-        File fileToSign = new File("d:\\Documents\\Varrek\\Programs\\magwork\\Repos\\test\\dir.php");
+        File fileToSign = new File("d:\\Documents\\Varrek\\Programs\\magwork\\Repos\\filter.txt");
         boolean expResult = true;
         boolean result = GenerateDigitalSignature.verifySigh(fileToSign);
         assertEquals(expResult, result);

@@ -76,10 +76,9 @@ public class FileControllerTest {
     /**
      * Test of recursiveCopy method, of class FileController.
      */
-    
     @Test
     public void testRecursiveCopy() throws Exception {
-       try {
+        try {
             Properties properties = new Properties();
             try {
                 InputStream is = this.getClass().getResourceAsStream("/META-INF/config.properties");
@@ -90,7 +89,7 @@ public class FileControllerTest {
 
             String repoRoot = properties.getProperty("contex.repoRoot");
             System.out.println("copyDirectory");
-            Repo rep = new Repo("test", "",  new Keys());
+            Repo rep = new Repo("test", "", new Keys());
             System.out.println(repoRoot + "\\" + rep.getName());
             File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest");
             File dirName = new File(repoRoot + "\\" + rep.getName() + "\\testCopy\\");
@@ -102,10 +101,10 @@ public class FileControllerTest {
             throw ex;
         }
     }
+
     /**
      * Test of recursiveCopy method, of class FileController.
      */
-    
     @Test
     public void testRecursiveCopyFile() throws Exception {
         try {
@@ -119,12 +118,12 @@ public class FileControllerTest {
 
             String repoRoot = properties.getProperty("contex.repoRoot");
             System.out.println("copyDirectory");
-            Repo rep = new Repo("test", "",  new Keys());
+            Repo rep = new Repo("test", "", new Keys());
 //            System.out.println(repoRoot + "\\" + rep.getName());
             File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\");
             File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest2\\");
-          //  File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\AndhorUser.java");
-           // File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\inTest\\AndhorUser.java");
+            //  File parent = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\AndhorUser.java");
+            // File dirName = new File(repoRoot + "\\" + rep.getName() + "\\inTest\\inTest\\AndhorUser.java");
 //            System.out.println(repoRoot + "\\" + rep.getName() + "\\inTest\\AndhorUser.java");
 //            System.out.println(repoRoot + "\\" + rep.getName() + "\\inTest\\inTest\\"+ parent.getName());
             FileController instance = new FileController();
@@ -135,6 +134,29 @@ public class FileControllerTest {
             throw ex;
         }
     }
-    
 
+    @Test
+    public void testListDir() throws Exception {
+        try {
+            Properties properties = new Properties();
+            try {
+                InputStream is = this.getClass().getResourceAsStream("/META-INF/config.properties");
+                properties.load(is);
+            } catch (IOException e) {
+                throw e;
+            }
+            String repoRoot = properties.getProperty("contex.repoRoot");
+            FileController instance = new FileController();
+            File parent = new File(repoRoot+"\\test");
+            File [] files= instance.listDir(parent);
+            System.out.println(instance.listDir(parent));
+            for (int index = 0; index < files.length; index++) {
+                //Print out the name of files in the directory  
+                System.out.println(files[index].toString());
+            }
+            assertEquals(true, true);
+        } catch (IOException ex) {
+            throw ex;
+        }
+    }
 }

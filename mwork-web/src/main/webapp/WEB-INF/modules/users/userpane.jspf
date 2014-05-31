@@ -1,0 +1,11 @@
+<%@page contentType="text/html"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="struts" uri="/struts-tags"%>
+<jstl:choose>
+	<jstl:when test="${currentUser == null}">
+		<a href="/login.jsp">Login</a> | <a href="/register.jsp">Register</a>
+	</jstl:when>
+	<jstl:otherwise>
+		<a href="/profile.jsp">${currentUser.getLogin()}</a> | <a href="<struts:url action='userLogout' />">Logout</a>
+	</jstl:otherwise>
+</jstl:choose>

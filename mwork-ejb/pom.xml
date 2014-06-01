@@ -135,6 +135,7 @@
                     <url>jdbc:postgresql:mwork</url>
                     <username>postgres</username>
                     <password>Ah'yrbyf,tkmyj</password>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

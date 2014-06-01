@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.varrek.mwork.HibernateUtil;
+import org.varrek.mwork.repo.RepoController;
 import org.varrek.mwork.signature.GenerateDigitalSignature;
 
 /**
@@ -130,10 +131,11 @@ public class UserController {
                 sess.beginTransaction();
                 sess.persist(newUser);
                 sess.getTransaction().commit();
+                sess.close();
+                GenerateDigitalSignature.generateKeys(newUser.getLogin());
+                RepoController.createRepository(login, "Base repository", newUser);
             } catch (Exception e) {
                 throw e;
-            } finally {
-                GenerateDigitalSignature.generateKeys(newUser.getLogin());
             }
         }
         return result;

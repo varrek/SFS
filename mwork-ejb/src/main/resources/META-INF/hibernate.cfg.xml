@@ -6,7 +6,7 @@
     <property name="hibernate.connection.password">Ah'yrbyf,tkmyj</property>
     <property name="hibernate.connection.url">jdbc:postgresql:mwork</property>
     <property name="hibernate.ejb.naming_strategy">org.hibernate.cfg.DefaultNamingStrategy</property>
-    <property name="hibernate.hbm2ddl.auto">verify</property>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.show_sql">true</property>

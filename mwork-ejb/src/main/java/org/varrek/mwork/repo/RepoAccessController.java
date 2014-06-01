@@ -21,7 +21,7 @@ public class RepoAccessController {
         Session sess = HibernateUtil.openSession();
         RepoAccess access = new RepoAccess();
        // access.setUser(userId);
-        access.setRepoID(repoId);
+        access.setRepoAC(repoId);
         access.setAdmin(isAdmin);
         access.setOperator(isOperator);
         access.setHaveAccess(isHaveAccess);

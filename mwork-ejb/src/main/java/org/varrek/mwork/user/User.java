@@ -3,6 +3,7 @@ package org.varrek.mwork.user;
 import java.util.*;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import org.varrek.mwork.repo.Keys;
 import org.varrek.mwork.repo.Repo;
@@ -33,8 +34,8 @@ public class User {
     @ManyToOne(targetEntity = UserGroup.class)
     @JoinColumn(name = "u_group", referencedColumnName = "id")
     private UserGroup u_group;
-    @OneToMany
-    @JoinColumn(name = "userId")
+    @OneToMany(targetEntity = RepoAccess.class)
+    @JoinColumn(name = "userAc")
     private List<RepoAccess> repositories;
 
     @OneToOne(targetEntity = Keys.class)
@@ -42,7 +43,6 @@ public class User {
     private Keys keyUser;
 
     /**
-     * @param id
      * @param fullName
      * @param login
      * @param email
@@ -53,10 +53,9 @@ public class User {
      * @param repositories
      * @param keyUser
      */
-    public User(int id, String fullName, String login, String email,
+    public User(String fullName, String login, String email,
             String address, String description, String pass, UserGroup group,
             List<RepoAccess> repositories, Keys keyUser) {
-        this.id = id;
         this.fullName = fullName;
         this.login = login;
         this.email = email;
@@ -215,7 +214,7 @@ public class User {
     public RepoAccess getRepoRight(Repo rep) {
         RepoAccess result = null;
         for (RepoAccess curr : repositories) {
-            if (curr.getRepoID().getId() == rep.getId()) {
+            if (curr.getRepoAC().getId() == rep.getId()) {
                 result = curr;
                 break;
             }
@@ -225,7 +224,7 @@ public class User {
 
     public void setRepoRight(RepoAccess access) {
         for (RepoAccess curr : repositories) {
-            if (curr.getRepoID().getId() == access.getRepoID().getId()) {
+            if (curr.getRepoAC().getId() == access.getRepoAC().getId()) {
                 repositories.remove(curr);
                 break;
             }

@@ -6,7 +6,7 @@
 	<struts:password name="repassword" label="Retype Password"/>
 	<struts:textfield name="email" label="E-mail"/>
 	<struts:textfield name="reemail" label="Retype e-mail"/>
-	<struts:select headerKey="-1" headerValue="<-- Select gender -->"
-				   list="{'Male','Female'}" name="Gender" label="Gender"/>
+	<struts:textfield name="fullname" label="Fullname"/>
+        <struts:textfield name="address" label="Address"/>
 	<struts:submit/>
 </struts:form>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import org.varrek.mwork.user.User;
 
 @Entity
@@ -18,8 +19,7 @@ public class Repo {
     @Column
     private String descr;
     @OneToMany(targetEntity = RepoAccess.class)
-    @JoinColumn(name = "repoID")
-    private List<RepoAccess> users;
+    private List<RepoAccess> usersRep;
     @OneToOne(targetEntity = Keys.class)
     @JoinColumn(name = "id")
     private Keys keyRepo;
@@ -27,19 +27,18 @@ public class Repo {
     /**
      * @param name
      * @param descr
-     * @param users
      * @param keyRepo
      */
     public Repo(String name, String descr,
             Keys keyRepo) {
         this.name = name;
         this.descr = descr;
-        this.users = new ArrayList<RepoAccess>();
+        this.usersRep = new ArrayList<RepoAccess>();
         this.keyRepo = keyRepo;
     }
 
     public Repo() {
-        this.users = new ArrayList<RepoAccess>();
+        this.usersRep = new ArrayList<RepoAccess>();
     }
 
     /**
@@ -85,17 +84,17 @@ public class Repo {
     }
 
     /**
-     * @return the users
+     * @return the usersRep
      */
     public List<RepoAccess> getUsers() {
-        return users;
+        return usersRep;
     }
 
     /**
-     * @param users the users to set
+     * @param users the usersRep to set
      */
     public void setUsers(List<RepoAccess> users) {
-        this.users = users;
+        this.usersRep = users;
     }
 
     /**
@@ -114,8 +113,8 @@ public class Repo {
 
     public RepoAccess getUserRight(User user) {
         RepoAccess result = null;
-        for (RepoAccess curr : users) {
-            if (curr.getUser().getId() == user.getId()) {
+        for (RepoAccess curr : usersRep) {
+            if (curr.getUserAc().getId() == user.getId()) {
                 result = curr;
                 break;
             }
@@ -124,13 +123,13 @@ public class Repo {
     }
 
     public void setUserRight(RepoAccess access) {
-        for (RepoAccess curr : users) {
-            if (curr.getRepoID().getId() == access.getRepoID().getId()) {
-                users.remove(curr);
+        for (RepoAccess curr : usersRep) {
+            if (curr.getRepoAC().getId() == access.getRepoAC().getId()) {
+                usersRep.remove(curr);
                 break;
             }
         }
-        users.add(access);
+        usersRep.add(access);
     }
 
 }

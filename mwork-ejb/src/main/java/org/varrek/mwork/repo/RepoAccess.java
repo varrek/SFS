@@ -10,9 +10,11 @@ public class RepoAccess {
 	@GeneratedValue
 	private int id;
 	@ManyToOne(targetEntity = User.class)
-	private User user;
+        @JoinColumn(name = "userAc", referencedColumnName = "id")
+	private User userAc;
 	@ManyToOne(targetEntity = Repo.class)
-	private Repo repoID;
+        @JoinColumn(name = "repoAC", referencedColumnName = "id")
+	private Repo repoAC;
 
 	@Column
 	private boolean isAdmin;
@@ -24,17 +26,16 @@ public class RepoAccess {
 	private boolean isHaveAccess;
 
 	/**
-	 * @param id
-	 * @param userId
-	 * @param repoID
+	 * @param userAc
+	 * @param repoAC
 	 * @param isAdmin
 	 * @param isOperator
 	 * @param isHaveAccess
 	 */
-	public RepoAccess(User userId, Repo repoID, boolean isAdmin,
+	public RepoAccess(User userAc, Repo repoAC, boolean isAdmin,
 			boolean isOperator, boolean isHaveAccess) {
-		this.user = userId;
-		this.repoID = repoID;
+		this.userAc = userAc;
+		this.repoAC = repoAC;
 		this.isAdmin = isAdmin;
 		this.isOperator = isOperator;
 		this.isHaveAccess = isHaveAccess;
@@ -59,33 +60,33 @@ public class RepoAccess {
 	}
 
 	/**
-	 * @return the user
+	 * @return the userAc
 	 */
-	public User getUser() {
-		return user;
+	public User getUserAc() {
+		return userAc;
 	}
 
 	/**
-	 * @param userId
-	 *            the user to set
+	 * @param userAc
+	 *            the userAc to set
 	 */
-	public void setUser(User userId) {
-		this.user = userId;
+	public void setUserAc(User userAc) {
+		this.userAc = userAc;
 	}
 
 	/**
-	 * @return the repoID
+	 * @return the repoAC
 	 */
-	public Repo getRepoID() {
-		return repoID;
+	public Repo getRepoAC() {
+		return repoAC;
 	}
 
 	/**
-	 * @param repoID
-	 *            the repoID to set
+	 * @param repoAC
+	 *            the repoAC to set
 	 */
-	public void setRepoID(Repo repoID) {
-		this.repoID = repoID;
+	public void setRepoAC(Repo repoAC) {
+		this.repoAC = repoAC;
 	}
 
 	/**

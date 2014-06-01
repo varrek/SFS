@@ -1,6 +1,6 @@
 # Secure FIle Storage
 
-**WEB-based file storage system. Ñapabilities:**
+**WEB-based file storage system. Capabilities:**
 
 
 * User ACL

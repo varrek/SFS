@@ -34,7 +34,7 @@ public class User {
     @ManyToOne(targetEntity = UserGroup.class)
     @JoinColumn(name = "u_group", referencedColumnName = "id")
     private UserGroup u_group;
-    @OneToMany(targetEntity = RepoAccess.class)
+    @OneToMany(targetEntity = RepoAccess.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "userAc")
     private List<RepoAccess> repositories;
 
@@ -217,6 +217,16 @@ public class User {
             if (curr.getRepoAC().getId() == rep.getId()) {
                 result = curr;
                 break;
+            }
+        }
+        return result;
+    }
+
+    public List <Repo> getRepos() {
+        List <Repo> result = new ArrayList<>();
+        for (RepoAccess curr : repositories) {
+            if (curr.isHaveAccess()) {
+                result.add(curr.getRepoAC());
             }
         }
         return result;

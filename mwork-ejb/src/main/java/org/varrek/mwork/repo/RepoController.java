@@ -24,7 +24,7 @@ public class RepoController {
         cUser = (User)sess.get(User.class, cUser.getId());
         newRepo.setName(repoName);
         newRepo.setDescr(description);
-        RepoAccess newRepoAccess = new RepoAccess(cUser, newRepo, true, true, false);
+        RepoAccess newRepoAccess = new RepoAccess(cUser, newRepo, true, true, true);
         try {
             sess.beginTransaction();
             sess.persist(newRepo);

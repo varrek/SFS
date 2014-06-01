@@ -20,14 +20,21 @@
         - Credits: Taylor Bastien, David Levine, David Cowan, Lieven Govaerts
 --%>
 <%@page import="org.apache.log4j.Logger"%>
+<%@page import="javax.servlet.ServletRequestEvent"%>
+<%@page import="javax.servlet.ServletRequestListener"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="org.apache.log4j.Priority"%>
 <%@page import="org.varrek.mwork.signature.GenerateDigitalSignature"%>
+<%@page import="org.varrek.mwork.user.User"%>
+<%@page import="org.varrek.mwork.repo.Repo"%>
 <%@page import="java.util.*,
         java.net.*,
         java.text.*,
         java.util.zip.*,
         java.io.*"
         %>
+<%! private static String RESTRICK_PATH = "";%>
+<% RESTRICK_PATH= request.getAttribute("tempPath").toString();%>
 <%! 
     private static final Logger LOGGER = Logger.getLogger("JSP");
     	public static Logger getLogger(){
@@ -38,7 +45,7 @@
     /**
      * If true, all operations (besides upload and native commands) which change
      * something on the file system are permitted
-     */
+     */   
     private static final boolean READ_ONLY = false;
     //If true, uploads are allowed even if READ_ONLY = true
     private static final boolean ALLOW_UPLOAD = true;
@@ -50,7 +57,6 @@
     private static final boolean RESTRICT_WHITELIST = true;
     //Paths, sperated by semicolon
     //private static final String RESTRICT_PATH = "C:\\CODE;E:\\"; //Win32: Case important!!
-    private static final String RESTRICT_PATH = "D:\\Documents\\Varrek\\Programs\\magwork\\Repos\\test;D:\\Documents\\Varrek\\Programs\\magwork\\Repos\\temp;";
 
     //The refresh time in seconds of the upload monitor window
     private static final int UPLOAD_MONITOR_REFRESH = 2;
@@ -870,7 +876,7 @@
             return false;
         }
         if (RESTRICT_BROWSING) {
-            StringTokenizer stk = new StringTokenizer(RESTRICT_PATH, ";");
+            StringTokenizer stk = new StringTokenizer(RESTRICK_PATH, ";");
             while (stk.hasMoreTokens()) {
                 if (path != null && path.getCanonicalPath().startsWith(stk.nextToken())) {
                     return RESTRICT_WHITELIST;
@@ -1181,10 +1187,10 @@ document.onkeypress = shortKeyHandler;
         //Check path
         if (!isAllowed(new File(path), false)) {
             //TODO Blacklist
-            if (RESTRICT_PATH.indexOf(";") < 0) {
-                path = RESTRICT_PATH;
+            if (request.getAttribute("tempPath").toString().indexOf(";") < 0) {
+                path = request.getAttribute("tempPath").toString();
             } else {
-                path = RESTRICT_PATH.substring(0, RESTRICT_PATH.indexOf(";"));
+                path = request.getAttribute("tempPath").toString().substring(0, request.getAttribute("tempPath").toString().indexOf(";"));
             }
         }
         request.setAttribute("dir", path);

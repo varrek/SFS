@@ -6,6 +6,6 @@
 		<a href="/login.jsp">Login</a> | <a href="/register.jsp">Register</a>
 	</jstl:when>
 	<jstl:otherwise>
-		<a href="/profile.jsp">${currentUser.getLogin()}</a> | <a href="<struts:url action='userLogout' />">Logout</a>
+		<a href="/profile.jsp">${currentUser.getLogin()}</a>| <a href="/repoManager.jsp">Manage Repositories</a> | <a href="<struts:url action='userLogout' />">Logout</a>
 	</jstl:otherwise>
 </jstl:choose>

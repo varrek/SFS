@@ -23,8 +23,7 @@
         </action>
         <action name="fileUpload"
                 class="org.varrek.mwork.files.FileUploadAction">
-            <param name="filesPath">d:/Documents/Varrek/Programs/magwork/Repos/temp/</param>
-            <result name="success" type="redirectAction">UploadSuccess.jsp</result>
+            <result name="success" type="chain">UploadSuccess.jsp</result>
             <result name="input" type="redirectAction">verify.jsp</result> 
             
             <interceptor-ref name="defaultStack">

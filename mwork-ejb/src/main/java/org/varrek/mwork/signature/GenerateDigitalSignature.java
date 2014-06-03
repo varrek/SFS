@@ -208,4 +208,48 @@ public class GenerateDigitalSignature {
         }
         return verifies;
     }
+    
+    public static boolean verifyUserSigh(File fileToSign, File sign) {
+        boolean verifies = false;
+        {
+            try {
+                /* Получение encoded public key из файла “pubkey” */
+               // byte[] encKey = readFromFile(fileToSign.getPath() + ".KEY");
+
+                /* Создание спецификации ключа */
+                // X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(encKey);
+                KeyFactory keyFactory = KeyFactory.getInstance("DSA", "SUN");
+                // PublicKey pubKey = keyFactory.generatePublic(pubKeySpec);
+                String path = "d:\\Documents\\Varrek\\Programs\\magwork\\Repos\\keys\\varrek";
+                KeyPair pair = GenerateDigitalSignature.LoadKeyPair(path, "DSA");
+                System.out.println("Loaded Key Pair");
+                dumpKeyPair(pair);
+                PublicKey pubKey = pair.getPublic();
+
+                /* Чтение подписи из файла “signature” */
+                byte[] sigToVerify = readFromFile(sign.getPath());
+                System.out.println(sign.getPath());
+                /* Создание объекта класса Signature и инициализация с помощью открытого ключа */
+                Signature sig = Signature.getInstance("SHA1withDSA", "SUN");
+                sig.initVerify(pubKey);
+
+                /* Чтение данных из файла “data” и вызов метода update() */
+                FileInputStream datafis = new FileInputStream(fileToSign);
+                BufferedInputStream bufin = new BufferedInputStream(datafis);
+                byte[] buffer = new byte[1024];
+                int len;
+                while (bufin.available() != 0) {
+                    len = bufin.read(buffer);
+                    sig.update(buffer, 0, len);
+                }
+                bufin.close();
+                /* Верификация */
+                verifies = sig.verify(sigToVerify);
+                System.out.println("Signature verifies: " + verifies);
+            } catch (Exception e) {
+                System.err.println("Caught exception " + e.toString());
+            }
+        }
+        return verifies;
+    }
 }

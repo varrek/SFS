@@ -25,7 +25,7 @@ import org.varrek.mwork.signature.GenerateDigitalSignature;
  */
 public class FileUploadHandler extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "d:/Documents/Varrek/Programs/magwork/Repos/test/";
+    private final String UPLOAD_DIRECTORY = "d:/Documents/Varrek/Programs/magwork/Repos/temp/";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

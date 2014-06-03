@@ -227,6 +227,8 @@ public class UserController {
         if (!usersOnline.isEmpty()) {
             for (UserSessionBindings currentBinding : usersOnline) {
                 if (currentBinding.session.equals(sessionID)) {
+                    Session sess = HibernateUtil.openSession();
+                    sess.refresh(currentBinding.user);
                     result = currentBinding.user;
                     break;
                 }

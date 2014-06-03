@@ -38,6 +38,7 @@ public class RepoController {
             File theDir = new File(path + '\\' + repoName);
             System.out.println(theDir);
             theDir.mkdir();
+            result="success";
         } catch (Exception e) {
             throw e;
         }

@@ -2,31 +2,54 @@
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<constant name="struts.devMode" value="true" />
-	<constant name="struts.action.extension" value=""/>
-         <constant name="struts.action.excludePattern" value=".*Browser.jsp"/>
-	<package name="default"  namespace="/" extends="struts-default">
-		<result-types>
-			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
-		<action name="/">
-			<result type="redirectAction">index.jsp</result>
-		</action>
-		<action name="*.jsp">
-			<result type="tiles">{1}</result>
-		</action>
-	</package>
-	<package name="UserAction" extends="default">
-		<action name="userLogin" class="org.varrek.mwork.user.UserAction" method="login">
-			<result name="success" type="redirectAction">index.jsp</result>
-			<result name="failure" type="redirectAction">login.jsp</result>
-		</action>
-		<action name="userRegister" class="org.varrek.mwork.user.UserAction" method="register">
-			<result name="success" type="redirectAction">index.jsp</result>
-			<result name="failure" type="redirectAction">register.jsp</result>
-		</action>
-		<action name="userLogout" class="org.varrek.mwork.user.UserAction" method="logout">
-			<result name="success" type="redirectAction">index.jsp</result>
-		</action>
-	</package>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value=""/>
+    <constant name="struts.action.excludePattern" value=".*Browser.jsp"/>
+    <constant name="struts.multipart.maxSize" value="30000000" />   
+    <package name="default"  namespace="/" extends="struts-default">
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <action name="/">
+            <result type="redirectAction">index.jsp</result>
+        </action>
+        <action name="*.jsp">
+            <result type="tiles">{1}</result>
+        </action>
+    </package>
+    <package name="FileUploadAction" extends="default">  
+        <action name="upload">
+            <result type="redirectAction">verify.jsp</result>
+        </action>
+        <action name="fileUpload"
+                class="org.varrek.mwork.files.FileUploadAction">
+            <param name="filesPath">d:/Documents/Varrek/Programs/magwork/Repos/temp/</param>
+            <result name="success" type="redirectAction">UploadSuccess.jsp</result>
+            <result name="input" type="redirectAction">verify.jsp</result> 
+            
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">100485760</param>
+            </interceptor-ref>
+    
+        </action>
+    </package>
+    <package name="UserAction" extends="default">
+        <action name="userLogin" class="org.varrek.mwork.user.UserAction" method="login">
+            <result name="success" type="redirectAction">index.jsp</result>
+            <result name="failure" type="redirectAction">login.jsp</result>
+        </action>
+        <action name="userRegister" class="org.varrek.mwork.user.UserAction" method="register">
+            <result name="success" type="redirectAction">index.jsp</result>
+            <result name="failure" type="redirectAction">register.jsp</result>
+        </action>
+        <action name="userLogout" class="org.varrek.mwork.user.UserAction" method="logout">
+            <result name="success" type="redirectAction">index.jsp</result>
+        </action>
+    </package>
+    <package name="RepoAction" extends="default">
+        <action name="createRepo" class="org.varrek.mwork.repo.RepoAction" method="createRepo">
+            <result name="success" type="redirectAction">repoManager.jsp</result>
+            <result name="failure" type="redirectAction">login.jsp</result>
+        </action>
+    </package>
 </struts>

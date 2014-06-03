@@ -28,7 +28,7 @@ public class RequestListener implements ServletRequestListener {
         if (currentUser != null) {
             String tempPath = "";
             for (Repo curr : currentUser.getRepos()) {
-                tempPath = "D:\\Documents\\Varrek\\Programs\\magwork\\Repos\\" + curr.getName() + ";";
+                tempPath += "D:\\Documents\\Varrek\\Programs\\magwork\\Repos\\" + curr.getName() + ";";
             }
             sre.getServletRequest().setAttribute("tempPath", tempPath);
         }

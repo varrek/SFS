@@ -5,6 +5,6 @@
 </jstl:if>
 <struts:form action="askRepoAccess">
 	<struts:textfield name="name" label="Repositiry Name"/>
-        <struts:hidden name="users" value="%{currentUser}"/>
+         <struts:hidden name="users" value="%{#parameters['n']}"/>
 	<struts:submit/>
 </struts:form>

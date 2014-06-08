@@ -5,6 +5,7 @@
  */
 package org.varrek.mwork.signature;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import org.varrek.mwork.repo.Repo;
 import org.varrek.mwork.user.User;
@@ -17,20 +18,22 @@ public class AccessSingleton {
 
     private User user;
     private Repo rep;
-    ArrayList shares = new ArrayList();
+    ArrayList <BigInteger> shares = new ArrayList();
 
-    private static AccessSingleton instance = null;
-
-    protected AccessSingleton() {
-        // Exists only to defeat instantiation.
+    public AccessSingleton(User user, Repo rep) {
+        this.user = user;
+        this.rep = rep;
     }
 
-    public static AccessSingleton getInstance() {
-        if (instance == null) {
-            instance = new AccessSingleton();
-        }
-        return instance;
+    public ArrayList<BigInteger> getShares() {
+        return shares;
     }
+
+    public void setShares(ArrayList<BigInteger> shares) {
+        this.shares = shares;
+    }
+
+
 
     public User getUser() {
         return user;
@@ -46,14 +49,6 @@ public class AccessSingleton {
 
     public void setRep(Repo rep) {
         this.rep = rep;
-    }
-
-    public ArrayList getShares() {
-        return shares;
-    }
-
-    public void setShares(ArrayList shares) {
-        this.shares = shares;
     }
     
 }

@@ -20,3 +20,4 @@
 </table>
 
 <a href="/createRepo.jsp">Create new Repository</a>
+<a href="/askAccess.jsp?n=${current.getName()}">Ask acces to Repository</a>

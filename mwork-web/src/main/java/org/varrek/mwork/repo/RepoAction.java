@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
+import org.varrek.mwork.signature.AccessSingleton;
 import static org.varrek.mwork.signature.GenerateDigitalSignature.getHexString;
+import org.varrek.mwork.signature.Storage;
 import org.varrek.mwork.user.User;
 import org.varrek.mwork.user.UserController;
 
@@ -61,12 +63,12 @@ public class RepoAction {
     public void setUsersRep(final List<RepoAccess> usersRep) {
         this.usersRep = usersRep;
     }
-    
+
     public String createRepo() {
         String result;
         final HttpServletRequest request = ServletActionContext.getRequest();
-        final String createResult = controller.createRepository(getName(),getDescr(), (User) request.getAttribute("currentUser"));
-        if (createResult=="success") {
+        final String createResult = controller.createRepository(getName(), getDescr(), (User) request.getAttribute("currentUser"));
+        if (createResult == "success") {
             result = SUCCESS;
         } else {
             request.setAttribute(REQUESTATTRNAME, "WrongPassword");
@@ -74,23 +76,31 @@ public class RepoAction {
         }
         return result;
     }
-    
-    public String addManager () {
-         String result = "failure";
-         ArrayList <User> userList=new ArrayList();
-         String[] users=this.getUsers().split(System.getProperty("line.separator"));
-          for (String curr : users) {
-              User user= controllerUser.getUserByLogin(curr);
-              userList.add(user);
-              System.out.println("User login: " + curr);
-          }
-         final boolean addManagerResult = controller.addManagers(userList,controller.getRepoByName(this.getName()));
-         System.out.println("Addmanager result " + addManagerResult);
-          if (addManagerResult) {
+
+    public String addManager() {
+        String result = "failure";
+        ArrayList<User> userList = new ArrayList();
+        String[] users = this.getUsers().split(System.getProperty("line.separator"));
+        for (String curr : users) {
+            User user = controllerUser.getUserByLogin(curr);
+            userList.add(user);
+            System.out.println("User login: " + curr);
+        }
+        final boolean addManagerResult = controller.addManagers(userList, controller.getRepoByName(this.getName()));
+        System.out.println("Addmanager result " + addManagerResult);
+        if (addManagerResult) {
             result = SUCCESS;
         } else {
-              result = FAILURE;
-          }
-         return result;
+            result = FAILURE;
+        }
+        return result;
+    }
+
+    public String askAccess() {
+        String result = "failure";
+        User user = controllerUser.getUserByLogin(getUsers());
+        Repo rep = controller.getRepoByName(getName());
+        Storage.getInstance().createAccessRequest(user,rep);
+        return SUCCESS;
     }
 }

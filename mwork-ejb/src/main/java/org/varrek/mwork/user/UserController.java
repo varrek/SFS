@@ -14,24 +14,24 @@ import org.varrek.mwork.signature.GenerateDigitalSignature;
  * Servlet implementation class User
  */
 public class UserController {
-
+    
     public static class UserSessionBindings {
-
+        
         private User user;
         private String session;
-
+        
         public User getUser() {
             return user;
         }
-
+        
         public String getSession() {
             return session;
         }
-
+        
         public void setUser(User user) {
             this.user = user;
         }
-
+        
         public void setSession(String session) {
             this.session = session;
         }
@@ -84,6 +84,20 @@ public class UserController {
         User result;
         Session sess = HibernateUtil.openSession();
         result = (User) (sess.get(User.class, iD));
+        return result;
+    }
+    
+    public static User getUserByLogin(String login) {
+        User result;
+        Session sess = HibernateUtil.openSession();
+        Query q = sess.createQuery("from User WHERE login=:login");
+        List users = q.setParameter("login", login).list();
+        if (users.size() == 0) {
+            result = null;
+        } else {
+            result = (User) users.get(0);
+        }
+        sess.evict(result);
         return result;
     }
 
@@ -209,7 +223,7 @@ public class UserController {
                 user.setPass(getMD5(newPassword));
                 sess.flush();
             }
-
+            
             sess.close();
         }
         return result;

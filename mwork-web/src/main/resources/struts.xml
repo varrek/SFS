@@ -50,5 +50,9 @@
             <result name="success" type="redirectAction">repoManager.jsp</result>
             <result name="failure" type="redirectAction">login.jsp</result>
         </action>
+        <action name="addManager" class="org.varrek.mwork.repo.RepoAction" method="addManager">
+            <result name="success" type="redirectAction">repoManager.jsp</result>
+            <result name="failure" type="redirectAction">login.jsp</result>
+        </action>
     </package>
 </struts>

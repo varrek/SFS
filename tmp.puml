@@ -1,0 +1,106 @@
+@startuml
+annotation org.varrek.mwork.repo.Column
+annotation org.varrek.mwork.repo.Entity
+annotation org.varrek.mwork.repo.GeneratedValue
+annotation org.varrek.mwork.repo.Id
+annotation org.varrek.mwork.repo.JoinColumn
+annotation org.varrek.mwork.repo.ManyToOne
+annotation org.varrek.mwork.repo.OneToMany
+annotation org.varrek.mwork.repo.OneToOne
+annotation org.varrek.mwork.repo.Table
+annotation org.varrek.mwork.repo.Temporal
+annotation org.varrek.mwork.user.Column
+annotation org.varrek.mwork.user.Entity
+annotation org.varrek.mwork.user.GeneratedValue
+annotation org.varrek.mwork.user.Id
+annotation org.varrek.mwork.user.JoinColumn
+annotation org.varrek.mwork.user.ManyToOne
+annotation org.varrek.mwork.user.OneToMany
+annotation org.varrek.mwork.user.OneToOne
+annotation org.varrek.mwork.user.Table
+class org.varrek.mwork.HibernateUtil
+class org.varrek.mwork.files.FileController
+class org.varrek.mwork.files.FileControllerTest
+class org.varrek.mwork.files.FileUploadAction
+class org.varrek.mwork.files.FileUploadHandler
+class org.varrek.mwork.files.FileUtil
+class org.varrek.mwork.repo.Keys
+class org.varrek.mwork.repo.Repo
+class org.varrek.mwork.repo.RepoAccess
+class org.varrek.mwork.repo.RepoAccessController
+class org.varrek.mwork.repo.RepoAction
+class org.varrek.mwork.repo.RepoController
+class org.varrek.mwork.signature.GenerateDigitalSignature
+class org.varrek.mwork.signature.GenerateDigitalSignatureTest
+class org.varrek.mwork.user.User
+class org.varrek.mwork.user.UserAPI
+class org.varrek.mwork.user.UserAction
+class org.varrek.mwork.user.UserController
+class org.varrek.mwork.user.UserControllerTest
+class org.varrek.mwork.user.UserGroup
+class org.varrek.mwork.user.UserTest
+class org.varrek.mwork.webui.RequestListener
+enum org.varrek.mwork.user.RegistrationResult
+org.varrek.mwork.HibernateUtil ..> org.varrek.mwork.user.User
+org.varrek.mwork.HibernateUtil ..> org.varrek.mwork.user.UserController
+org.varrek.mwork.files.FileController ..> org.varrek.mwork.repo.Repo
+org.varrek.mwork.files.FileControllerTest ..> org.varrek.mwork.repo.Keys
+org.varrek.mwork.files.FileControllerTest ..> org.varrek.mwork.repo.Repo
+org.varrek.mwork.files.FileUploadAction ..> org.varrek.mwork.signature.GenerateDigitalSignature
+org.varrek.mwork.files.FileUploadHandler ..> org.varrek.mwork.signature.GenerateDigitalSignature
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.Column
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.Entity
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.GeneratedValue
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.Id
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.Table
+org.varrek.mwork.repo.Keys ..> org.varrek.mwork.repo.Temporal
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.Column
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.Entity
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.GeneratedValue
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.Id
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.JoinColumn
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.OneToMany
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.OneToOne
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.repo.Table
+org.varrek.mwork.repo.Repo ..> org.varrek.mwork.user.User
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.Column
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.Entity
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.GeneratedValue
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.Id
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.JoinColumn
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.repo.ManyToOne
+org.varrek.mwork.repo.RepoAccess ..> org.varrek.mwork.user.User
+org.varrek.mwork.repo.RepoAccessController ..> org.varrek.mwork.HibernateUtil
+org.varrek.mwork.repo.RepoAccessController ..> org.varrek.mwork.user.User
+org.varrek.mwork.repo.RepoAction ..> org.varrek.mwork.user.User
+org.varrek.mwork.repo.RepoController ..> org.varrek.mwork.HibernateUtil
+org.varrek.mwork.repo.RepoController ..> org.varrek.mwork.user.User
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.Column
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.Entity
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.GeneratedValue
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.Id
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.JoinColumn
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.ManyToOne
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.OneToMany
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.OneToOne
+org.varrek.mwork.user.User ..> org.varrek.mwork.user.Table
+org.varrek.mwork.user.User ..> org.varrek.mwork.repo.Keys
+org.varrek.mwork.user.User ..> org.varrek.mwork.repo.Repo
+org.varrek.mwork.user.User ..> org.varrek.mwork.repo.RepoAccess
+org.varrek.mwork.user.UserAPI ..> org.varrek.mwork.HibernateUtil
+org.varrek.mwork.user.UserController ..> org.varrek.mwork.HibernateUtil
+org.varrek.mwork.user.UserController ..> org.varrek.mwork.repo.RepoController
+org.varrek.mwork.user.UserController ..> org.varrek.mwork.signature.GenerateDigitalSignature
+org.varrek.mwork.user.UserGroup ..> org.varrek.mwork.user.Column
+org.varrek.mwork.user.UserGroup ..> org.varrek.mwork.user.Entity
+org.varrek.mwork.user.UserGroup ..> org.varrek.mwork.user.GeneratedValue
+org.varrek.mwork.user.UserGroup ..> org.varrek.mwork.user.Id
+org.varrek.mwork.user.UserGroup ..> org.varrek.mwork.user.OneToMan
+org.varrek.mwork.user.UserTest ..> org.varrek.mwork.HibernateUtil
+org.varrek.mwork.user.UserTest ..> org.varrek.mwork.repo.Keys
+org.varrek.mwork.user.UserTest ..> org.varrek.mwork.repo.Repo
+org.varrek.mwork.user.UserTest ..> org.varrek.mwork.repo.RepoAccess
+org.varrek.mwork.webui.RequestListener ..> org.varrek.mwork.repo.Repo
+org.varrek.mwork.webui.RequestListener ..> org.varrek.mwork.user.User
+org.varrek.mwork.webui.RequestListener ..> org.varrek.mwork.user.UserController
+@enduml

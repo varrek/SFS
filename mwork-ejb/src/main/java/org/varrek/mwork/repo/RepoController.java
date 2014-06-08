@@ -6,8 +6,12 @@
 package org.varrek.mwork.repo;
 
 import java.io.File;
+import java.math.BigInteger;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.varrek.mwork.HibernateUtil;
+import org.varrek.mwork.signature.Shamir;
 import org.varrek.mwork.user.User;
 
 /**
@@ -21,7 +25,7 @@ public class RepoController {
         String result = "failure";
         Session sess = HibernateUtil.openSession();
         Repo newRepo = new Repo();
-        cUser = (User)sess.get(User.class, cUser.getId());
+        cUser = (User) sess.get(User.class, cUser.getId());
         newRepo.setName(repoName);
         newRepo.setDescr(description);
         RepoAccess newRepoAccess = new RepoAccess(cUser, newRepo, true, true, true);
@@ -38,7 +42,7 @@ public class RepoController {
             File theDir = new File(path + '\\' + repoName);
             System.out.println(theDir);
             theDir.mkdir();
-            result="success";
+            result = "success";
         } catch (Exception e) {
             throw e;
         }
@@ -63,6 +67,51 @@ public class RepoController {
             throw e;
         } finally {
             result = "success";
+        }
+        return result;
+    }
+
+    public static Repo getRepoByName(String name) {
+        Repo result;
+        Session sess = HibernateUtil.openSession();
+        Query q = sess.createQuery("from Repo WHERE name=:name");
+        List users = q.setParameter("name", name).list();
+        if (users.size() == 0) {
+            result = null;
+        } else {
+            result = (Repo) users.get(0);
+        }
+        System.out.println("Repository to manage: " + result);
+        sess.close();
+        return result;
+    }
+
+    public boolean addManagers(List<User> users, Repo rep) {
+        boolean result = false;
+        Session sess = HibernateUtil.openSession();
+        sess.update(rep);
+        sess.beginTransaction();
+        final Shamir shamir = new Shamir(users.size() - 1, users.size());
+
+        final BigInteger secret = new BigInteger("1234567890123456789012345678901234567890");
+        final Shamir.SecretShare[] shares = shamir.split(secret);
+        final BigInteger prime = shamir.getPrime();
+        rep.setPrime(prime.toString());
+        int i = 0;
+        try {
+            for (User curr : users) {
+                RepoAccess newRepoAccess = new RepoAccess(curr, rep, false, true, true);
+                curr.setMessages("Code: " + shares[i].toString() + " for Repo" + rep.getName());
+                sess.update(curr);
+                i++;
+                sess.persist(newRepoAccess);
+                rep.setUserRight(newRepoAccess);
+            }
+            sess.update(rep);
+            sess.getTransaction().commit();
+        } catch (Exception e) {
+            sess.getTransaction().rollback();
+            throw e;
         }
         return result;
     }

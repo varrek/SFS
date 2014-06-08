@@ -30,6 +30,16 @@ public class User {
     private String description;
     @Column
     private String pass;
+    @Column
+    private String messages;
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
 
     @ManyToOne(targetEntity = UserGroup.class)
     @JoinColumn(name = "u_group", referencedColumnName = "id")

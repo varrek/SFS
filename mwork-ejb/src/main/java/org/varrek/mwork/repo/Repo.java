@@ -18,6 +18,8 @@ public class Repo {
     private String name;
     @Column
     private String descr;
+    @Column
+    private String prime;
     @OneToMany(targetEntity = RepoAccess.class)
     private List<RepoAccess> usersRep;
     @OneToOne(targetEntity = Keys.class)
@@ -39,6 +41,14 @@ public class Repo {
 
     public Repo() {
         this.usersRep = new ArrayList<RepoAccess>();
+    }
+
+    public String getPrime() {
+        return prime;
+    }
+
+    public void setPrime(String prime) {
+        this.prime = prime;
     }
 
     /**

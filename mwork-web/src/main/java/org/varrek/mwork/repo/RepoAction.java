@@ -174,6 +174,21 @@ public class RepoAction {
             System.out.println("Prime from db: " + prime);
             System.out.println("New Result is " + result);
             System.out.println("Secret in DB " + rep.getSecret());
+            BigInteger expResult = new BigInteger(rep.getSecret());
+            int res;
+            res = result.compareTo(expResult);
+            System.out.println("Is equal:" + (res == 0));
+            if (res == 0) {
+                try {
+                    sess.beginTransaction();
+                    RepoAccess newRepoAccess = new RepoAccess(user, rep, false, false, true);
+                    sess.persist(newRepoAccess);
+                    sess.getTransaction().commit();
+                } catch (Exception e) {
+                    sess.getTransaction().rollback();
+                    throw e;
+                }
+            }
         }
         return SUCCESS;
     }

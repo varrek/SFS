@@ -7,6 +7,8 @@ package org.varrek.mwork.signature;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.varrek.mwork.repo.Repo;
 import org.varrek.mwork.user.User;
 
@@ -18,22 +20,24 @@ public class AccessSingleton {
 
     private User user;
     private Repo rep;
-    ArrayList <BigInteger> shares = new ArrayList();
+    Map <Integer,BigInteger> shares = new HashMap<>();
 
     public AccessSingleton(User user, Repo rep) {
         this.user = user;
         this.rep = rep;
     }
 
-    public ArrayList<BigInteger> getShares() {
+    public  Map <Integer,BigInteger>  getShares() {
         return shares;
     }
 
-    public void setShares(ArrayList<BigInteger> shares) {
+    public void setShares( Map <Integer,BigInteger>  shares) {
         this.shares = shares;
     }
 
-
+    public void setNewShare(Integer usID,BigInteger code) {
+        this.shares.put(usID,code);
+    }
 
     public User getUser() {
         return user;
@@ -50,5 +54,5 @@ public class AccessSingleton {
     public void setRep(Repo rep) {
         this.rep = rep;
     }
-    
+
 }

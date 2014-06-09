@@ -2,7 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="org.varrek.mwork.*" %>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
-<jstl:out value="${currentUser.getMessages()}" />
+${currentUser.getMessages()}
 <table>
     <jstl:forEach items="${currentUser.getRepos()}" var="current">
         <tr>
@@ -20,4 +20,4 @@
 </table>
 
 <a href="/createRepo.jsp">Create new Repository</a>
-<a href="/askAccess.jsp?n=${current.getName()}">Ask acces to Repository</a>
+<a href="/askAccess.jsp?users=<jstl:out value='${currentUser.getLogin()}'/>">Ask acces to Repository</a>

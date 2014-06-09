@@ -14,29 +14,6 @@ import java.util.Random;
  */
 public class Shamir {
 
-    public final class SecretShare {
-
-        public SecretShare(final int num, final BigInteger share) {
-            this.num = num;
-            this.share = share;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public BigInteger getShare() {
-            return share;
-        }
-
-        @Override
-        public String toString() {
-            return "SecretShare [num=" + num + ", share=" + share + "]";
-        }
-
-        private final int num;
-        private final BigInteger share;
-    }
 
     public Shamir(final int k, final int n) {
         this.k = k;
@@ -68,7 +45,7 @@ public class Shamir {
 
                 accum = accum.add(t2).mod(prime);
             }
-            shares[i - 1] = new SecretShare(i - 1, accum);
+            shares[i - 1] = new SecretShare(i - 1, accum, this);
             System.out.println("Share " + shares[i - 1]);
         }
 

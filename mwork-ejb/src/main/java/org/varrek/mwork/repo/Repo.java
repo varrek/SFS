@@ -20,6 +20,8 @@ public class Repo {
     private String descr;
     @Column
     private String prime;
+    @Column
+    private String secret;
     @OneToMany(targetEntity = RepoAccess.class)
     private List<RepoAccess> usersRep;
     @OneToOne(targetEntity = Keys.class)
@@ -63,6 +65,14 @@ public class Repo {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     /**
@@ -134,12 +144,23 @@ public class Repo {
 
     public void setUserRight(RepoAccess access) {
         for (RepoAccess curr : usersRep) {
-            if (curr.getRepoAC().getId() == access.getRepoAC().getId()) {
+            if (curr.getUserAc().getId() == access.getUserAc().getId()) {
                 usersRep.remove(curr);
                 break;
             }
         }
         usersRep.add(access);
+    }
+
+    public List<User> getRepModer() {
+        List<User> result = new ArrayList<>();
+        for (RepoAccess curr : usersRep) {
+            if (curr.isOperator()) {
+                result.add(curr.getUserAc());
+                System.out.println(curr.getUserAc().getLogin());
+            }
+        }
+        return result;
     }
 
 }

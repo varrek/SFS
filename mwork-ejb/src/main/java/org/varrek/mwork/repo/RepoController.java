@@ -8,9 +8,11 @@ package org.varrek.mwork.repo;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.varrek.mwork.HibernateUtil;
+import org.varrek.mwork.signature.SecretShare;
 import org.varrek.mwork.signature.Shamir;
 import org.varrek.mwork.user.User;
 
@@ -92,9 +94,10 @@ public class RepoController {
         sess.update(rep);
         sess.beginTransaction();
         final Shamir shamir = new Shamir(users.size() - 1, users.size());
-
-        final BigInteger secret = new BigInteger("1234567890123456789012345678901234567890");
-        final Shamir.SecretShare[] shares = shamir.split(secret);
+        Random rnd= new Random();
+        final BigInteger secret = new BigInteger(133,rnd);
+        rep.setSecret(secret.toString());
+        final SecretShare[] shares = shamir.split(secret);
         final BigInteger prime = shamir.getPrime();
         rep.setPrime(prime.toString());
         int i = 0;

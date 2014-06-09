@@ -1,137 +1,134 @@
 package org.varrek.mwork.repo;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 import org.varrek.mwork.user.User;
 
 @Entity
 public class RepoAccess {
-	@Id
-	@GeneratedValue
-	private int id;
-	@ManyToOne(targetEntity = User.class)
-        @JoinColumn(name = "userAc", referencedColumnName = "id")
-	private User userAc;
-	@ManyToOne(targetEntity = Repo.class)
-        @JoinColumn(name = "repoAC", referencedColumnName = "id")
-	private Repo repoAC;
 
-	@Column
-	private boolean isAdmin;
+    @Id
+    @GeneratedValue
+    private int id;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userAc", referencedColumnName = "id")
+    private User userAc;
+    @ManyToOne(targetEntity = Repo.class)
+    @JoinColumn(name = "repoAC", referencedColumnName = "id")
+    private Repo repoAC;
 
-	@Column
-	private boolean isOperator;
+    @Column
+    private boolean isAdmin;
 
-	@Column
-	private boolean isHaveAccess;
+    @Column
+    private boolean isOperator;
 
-	/**
-	 * @param userAc
-	 * @param repoAC
-	 * @param isAdmin
-	 * @param isOperator
-	 * @param isHaveAccess
-	 */
-	public RepoAccess(User userAc, Repo repoAC, boolean isAdmin,
-			boolean isOperator, boolean isHaveAccess) {
-		this.userAc = userAc;
-		this.repoAC = repoAC;
-		this.isAdmin = isAdmin;
-		this.isOperator = isOperator;
-		this.isHaveAccess = isHaveAccess;
-	}
+    @Column
+    private boolean isHaveAccess;
 
-	public RepoAccess() {
-	}
+    /**
+     * @param userAc
+     * @param repoAC
+     * @param isAdmin
+     * @param isOperator
+     * @param isHaveAccess
+     */
+    public RepoAccess(User userAc, Repo repoAC, boolean isAdmin,
+            boolean isOperator, boolean isHaveAccess) {
+        this.userAc = userAc;
+        this.repoAC = repoAC;
+        this.isAdmin = isAdmin;
+        this.isOperator = isOperator;
+        this.isHaveAccess = isHaveAccess;
+    }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    public RepoAccess() {
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the userAc
-	 */
-	public User getUserAc() {
-		return userAc;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param userAc
-	 *            the userAc to set
-	 */
-	public void setUserAc(User userAc) {
-		this.userAc = userAc;
-	}
+    /**
+     * @return the userAc
+     */
+    public User getUserAc() {
+        return userAc;
+    }
 
-	/**
-	 * @return the repoAC
-	 */
-	public Repo getRepoAC() {
-		return repoAC;
-	}
+    /**
+     * @param userAc the userAc to set
+     */
+    public void setUserAc(User userAc) {
+        this.userAc = userAc;
+    }
 
-	/**
-	 * @param repoAC
-	 *            the repoAC to set
-	 */
-	public void setRepoAC(Repo repoAC) {
-		this.repoAC = repoAC;
-	}
+    /**
+     * @return the repoAC
+     */
+    public Repo getRepoAC() {
+        return repoAC;
+    }
 
-	/**
-	 * @return the isAdmin
-	 */
-	public boolean isAdmin() {
-		return isAdmin;
-	}
+    /**
+     * @param repoAC the repoAC to set
+     */
+    public void setRepoAC(Repo repoAC) {
+        this.repoAC = repoAC;
+    }
 
-	/**
-	 * @param isAdmin
-	 *            the isAdmin to set
-	 */
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+    /**
+     * @return the isAdmin
+     */
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 
-	/**
-	 * @return the isOperator
-	 */
-	public boolean isOperator() {
-		return isOperator;
-	}
+    /**
+     * @param isAdmin the isAdmin to set
+     */
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
-	/**
-	 * @param isOperator
-	 *            the isOperator to set
-	 */
-	public void setOperator(boolean isOperator) {
-		this.isOperator = isOperator;
-	}
+    /**
+     * @return the isOperator
+     */
+    public boolean isOperator() {
+        return isOperator;
+    }
 
-	/**
-	 * @return the isHaveAccess
-	 */
-	public boolean isHaveAccess() {
-		return isHaveAccess;
-	}
+    /**
+     * @param isOperator the isOperator to set
+     */
+    public void setOperator(boolean isOperator) {
+        this.isOperator = isOperator;
+    }
 
-	/**
-	 * @param isHaveAccess
-	 *            the isHaveAccess to set
-	 */
-	public void setHaveAccess(boolean isHaveAccess) {
-		this.isHaveAccess = isHaveAccess;
-	}
+    /**
+     * @return the isHaveAccess
+     */
+    public boolean isHaveAccess() {
+        return isHaveAccess;
+    }
+
+    /**
+     * @param isHaveAccess the isHaveAccess to set
+     */
+    public void setHaveAccess(boolean isHaveAccess) {
+        this.isHaveAccess = isHaveAccess;
+    }
 
 }

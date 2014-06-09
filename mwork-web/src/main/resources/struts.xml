@@ -58,5 +58,9 @@
             <result name="success" type="redirectAction">repoManager.jsp</result>
             <result name="failure" type="redirectAction">login.jsp</result>
         </action>
+        <action name="grantRights" class="org.varrek.mwork.repo.RepoAction" method="grantRights">
+            <result name="success" type="redirectAction">repoManager.jsp</result>
+            <result name="failure" type="redirectAction">login.jsp</result>
+        </action>
     </package>
 </struts>
